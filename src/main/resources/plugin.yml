@@ -1,0 +1,4 @@
+name: Runes
+version: '${project.version}'
+main: me.nikolchev98.runes.Runes
+api-version: 1.19

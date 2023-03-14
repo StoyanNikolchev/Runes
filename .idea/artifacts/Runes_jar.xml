@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Runes:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Runes_jar</output-path>
+    <root id="archive" name="Runes.jar">
+      <element id="module-output" name="Runes" />
+    </root>
+  </artifact>
+</component>
