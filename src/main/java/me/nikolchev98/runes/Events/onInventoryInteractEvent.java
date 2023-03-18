@@ -5,10 +5,13 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -32,17 +35,6 @@ public class onInventoryInteractEvent implements Listener {
     }
 
     @EventHandler
-    public void onPlayerItemHeld(PlayerItemHeldEvent event) {
-        Player player = event.getPlayer();
-        ItemStack currentItem = player.getInventory().getItem(event.getNewSlot());
-        if (currentItem != null) {
-            updateEffects(player, currentItem);
-        } else {
-            clearEffects(player);
-        }
-    }
-
-    @EventHandler
     public void onInventoryClickItem(InventoryClickEvent event) {
         onInventoryInteract(event);
     }
@@ -52,36 +44,75 @@ public class onInventoryInteractEvent implements Listener {
         onInventoryInteract(event);
     }
 
+    @EventHandler
+    public void onPlayerItemHeld(PlayerItemHeldEvent event) {
+        Player player = event.getPlayer();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                activateRuneEffects(player);
+            }
+        }.runTaskLater(plugin, 1);
+    }
+
+    @EventHandler
+    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
+        Player player = event.getPlayer();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                activateRuneEffects(player);
+            }
+        }.runTaskLater(plugin, 1);
+    }
+
+    @EventHandler
+    public void onItemPickup(EntityPickupItemEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    activateRuneEffects(player);
+                }
+            }.runTaskLater(plugin, 1);
+        }
+    }
+
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        activateRuneEffects(player);
+    }
+
     private void onInventoryInteract(InventoryInteractEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    ItemStack heldItem = player.getInventory().getItemInMainHand();
-
-                    //Gives rune effect if the held item is a rune
-                    if (runeIsInMainHand(player, heldItem)) {
-                            updateEffects(player, heldItem);
-                        } else {
-                            clearEffects(player);
-                        }
+                    activateRuneEffects(player);
                 }
             }.runTaskLater(plugin, 1);
         }
     }
 
+    private void activateRuneEffects(Player player) {
+        ItemStack heldItem = player.getInventory().getItemInMainHand();
+        ItemStack offHandItem = player.getInventory().getItemInOffHand();
+        clearEffects(player);
 
-    private void updateEffects(Player player, ItemStack item) {
-        //Removes a rune effect if there is no longer a rune in the player's main or off-hand
-        if (!runeIsInMainHand(player, item)) {
-            clearEffects(player);
+        if (isRune(heldItem) && isRune(offHandItem)) {
+            //Check both rune types and apply both effects
+            applyEffect(player, heldItem.getItemMeta().getLore());
+            applyEffect(player, offHandItem.getItemMeta().getLore());
 
-            //Applies rune effect from rune in main hand
-        } else if (runeIsInMainHand(player, item)) {
-            List<String> lore = Objects.requireNonNull(item.getItemMeta()).getLore();
-            assert lore != null;
-            applyEffect(player, lore);
+        } else if (isRune(heldItem) && !isRune(offHandItem)) {
+            //Check mainHandRune and apply its effect
+            applyEffect(player, heldItem.getItemMeta().getLore());
+        } else if (!isRune(heldItem) && isRune(offHandItem)) {
+            //Check offHandRune and apply its effect
+            applyEffect(player, offHandItem.getItemMeta().getLore());
         }
     }
 
@@ -106,8 +137,7 @@ public class onInventoryInteractEvent implements Listener {
 
         }
     }
-
-    public boolean runeIsInMainHand(Player player, ItemStack item) {
+    public boolean isRune(ItemStack item) {
         if (item.getType() == Material.PLAYER_HEAD && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
             List<String> lore = item.getItemMeta().getLore();
             if (lore.contains(HasteRune.getLore().get(0))) {
