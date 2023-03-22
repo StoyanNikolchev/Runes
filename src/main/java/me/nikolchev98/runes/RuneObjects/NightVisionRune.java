@@ -1,5 +1,7 @@
 package me.nikolchev98.runes.RuneObjects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class NightVisionRune extends Rune {
     public NightVisionRune() {
-        super("Rune of Night Vision", getLore(), getEffects());
+        super(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Sunglasses Required", getLore(), getEffects(), Material.SPYGLASS);
     }
 
     public static List<String> getLore() {

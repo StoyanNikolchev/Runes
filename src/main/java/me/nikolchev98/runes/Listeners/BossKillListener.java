@@ -18,7 +18,6 @@ public class BossKillListener implements Listener {
         Set<EntityType> mobs = new HashSet<>(Set.of(
                 EntityType.ENDER_DRAGON,
                 EntityType.WITHER,
-                EntityType.WARDEN,
                 EntityType.ELDER_GUARDIAN));
 
         //Checks if the mob is a boss

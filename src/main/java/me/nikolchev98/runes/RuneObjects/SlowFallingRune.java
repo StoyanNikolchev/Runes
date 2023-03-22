@@ -1,5 +1,7 @@
 package me.nikolchev98.runes.RuneObjects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class SlowFallingRune extends Rune {
     public SlowFallingRune() {
-        super("Rune of Slow Fall", getLore(), getEffects());
+        super(ChatColor.WHITE + "" + ChatColor.BOLD + "Light as Light", getLore(), getEffects(), Material.FEATHER);
     }
 
     public static List<String> getLore() {

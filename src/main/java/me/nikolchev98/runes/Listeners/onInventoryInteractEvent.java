@@ -1,4 +1,4 @@
-package me.nikolchev98.runes.Events;
+package me.nikolchev98.runes.Listeners;
 
 import me.nikolchev98.runes.RuneObjects.*;
 import org.bukkit.Material;
@@ -29,6 +29,15 @@ public class onInventoryInteractEvent implements Listener {
             PotionEffectType.JUMP,
             PotionEffectType.NIGHT_VISION,
             PotionEffectType.SLOW_FALLING));
+
+    List<Material> runeItems = new ArrayList<>(List.of(Material.MAGMA_BLOCK,
+            Material.TOTEM_OF_UNDYING,
+            Material.GLASS,
+            Material.RABBIT_FOOT,
+            Material.SPYGLASS,
+            Material.FEATHER,
+            //Keeps runes from previous version functional
+            Material.PLAYER_HEAD));
 
     public onInventoryInteractEvent(Plugin plugin) {
         this.plugin = plugin;
@@ -138,7 +147,7 @@ public class onInventoryInteractEvent implements Listener {
         }
     }
     public boolean isRune(ItemStack item) {
-        if (item.getType() == Material.PLAYER_HEAD && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
+        if (runeItems.contains(item.getType()) && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
             List<String> lore = item.getItemMeta().getLore();
             if (lore.contains(HasteRune.getLore().get(0))) {
                 return true;

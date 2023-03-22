@@ -1,5 +1,7 @@
 package me.nikolchev98.runes.RuneObjects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class JumpRune extends Rune {
     public JumpRune() {
-        super("Rune of Jump Boost", getLore(), getEffects());
+        super(ChatColor.BLUE + "" + ChatColor.BOLD + "I'm not officer, Mr High", getLore(), getEffects(), Material.RABBIT_FOOT);
     }
 
     public static List<String> getLore() {

@@ -1,5 +1,7 @@
 package me.nikolchev98.runes.RuneObjects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class InvisibilityRune extends Rune {
     public InvisibilityRune() {
-        super("Rune of Invisibility", getLore(), getEffects());
+        super(ChatColor.GREEN + "" + ChatColor.BOLD + "John Cena", getLore(), getEffects(), Material.GLASS);
     }
 
     public static List<String> getLore() {

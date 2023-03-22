@@ -1,6 +1,6 @@
 package me.nikolchev98.runes;
 
-import me.nikolchev98.runes.Events.onInventoryInteractEvent;
+import me.nikolchev98.runes.Listeners.onInventoryInteractEvent;
 import me.nikolchev98.runes.Listeners.BossKillListener;
 import org.bukkit.plugin.java.JavaPlugin;
 

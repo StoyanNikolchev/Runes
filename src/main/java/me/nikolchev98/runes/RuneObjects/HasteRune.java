@@ -1,5 +1,7 @@
 package me.nikolchev98.runes.RuneObjects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -8,7 +10,7 @@ import java.util.List;
 
 public class HasteRune extends Rune {
     public HasteRune() {
-        super("Rune of Haste", getLore(), getEffects());
+        super(ChatColor.GOLD + "" + ChatColor.BOLD + "Diggy Diggy Hole", getLore(), getEffects(), Material.TOTEM_OF_UNDYING);
     }
 
     public static List<String> getLore() {
