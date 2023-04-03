@@ -20,17 +20,18 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
-public class onInventoryInteractEvent implements Listener {
+public class InventoryInteractListener implements Listener {
     private final Plugin plugin;
+    private List<Player> playersWithRuneEffects = new ArrayList<>();
 
-    List<PotionEffectType> effectList = new ArrayList<>(Arrays.asList(PotionEffectType.FAST_DIGGING,
+    private final List<PotionEffectType> effectList = new ArrayList<>(Arrays.asList(PotionEffectType.FAST_DIGGING,
             PotionEffectType.FIRE_RESISTANCE,
             PotionEffectType.INVISIBILITY,
             PotionEffectType.JUMP,
             PotionEffectType.NIGHT_VISION,
             PotionEffectType.SLOW_FALLING));
 
-    List<Material> runeItems = new ArrayList<>(List.of(Material.MAGMA_BLOCK,
+    private final List<Material> runeItems = new ArrayList<>(List.of(Material.MAGMA_BLOCK,
             Material.TOTEM_OF_UNDYING,
             Material.GLASS,
             Material.RABBIT_FOOT,
@@ -39,7 +40,7 @@ public class onInventoryInteractEvent implements Listener {
             //Keeps runes from previous version functional
             Material.PLAYER_HEAD));
 
-    public onInventoryInteractEvent(Plugin plugin) {
+    public InventoryInteractListener(Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -143,8 +144,8 @@ public class onInventoryInteractEvent implements Listener {
 
         } else if (lore.contains(NightVisionRune.getLore().get(0))) {
             player.addPotionEffect(NightVisionRune.getEffects());
-
         }
+        playersWithRuneEffects.add(player);
     }
     public boolean isRune(ItemStack item) {
         if (runeItems.contains(item.getType()) && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
@@ -169,8 +170,9 @@ public class onInventoryInteractEvent implements Listener {
     public void clearEffects(Player player) {
         Collection<PotionEffect> activePotionEffects = player.getActivePotionEffects();
         activePotionEffects.forEach(e -> {
-            if (effectList.contains(e.getType())) {
+            if (effectList.contains(e.getType()) && playersWithRuneEffects.contains(player)) {
                 player.removePotionEffect(e.getType());
+                playersWithRuneEffects.remove(player);
             }
         });
     }

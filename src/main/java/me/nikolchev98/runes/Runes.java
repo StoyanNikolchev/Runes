@@ -1,6 +1,6 @@
 package me.nikolchev98.runes;
 
-import me.nikolchev98.runes.Listeners.onInventoryInteractEvent;
+import me.nikolchev98.runes.Listeners.InventoryInteractListener;
 import me.nikolchev98.runes.Listeners.BossKillListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,7 +10,7 @@ public final class Runes extends JavaPlugin {
     public void onEnable() {
         System.out.println("Runes are enabled!");
         getServer().getPluginManager().registerEvents(new BossKillListener(), this);
-        getServer().getPluginManager().registerEvents(new onInventoryInteractEvent(this), this);
+        getServer().getPluginManager().registerEvents(new InventoryInteractListener(this), this);
         // Plugin startup logic
 
     }
