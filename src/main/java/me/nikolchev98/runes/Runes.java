@@ -2,6 +2,7 @@ package me.nikolchev98.runes;
 
 import me.nikolchev98.runes.Listeners.InventoryInteractListener;
 import me.nikolchev98.runes.Listeners.BossKillListener;
+import me.nikolchev98.runes.RuneObjects.Rune;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Runes extends JavaPlugin {

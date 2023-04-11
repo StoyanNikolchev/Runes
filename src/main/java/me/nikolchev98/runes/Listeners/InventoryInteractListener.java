@@ -24,14 +24,16 @@ public class InventoryInteractListener implements Listener {
     private final Plugin plugin;
     private List<Player> playersWithRuneEffects = new ArrayList<>();
 
-    private final List<PotionEffectType> effectList = new ArrayList<>(Arrays.asList(PotionEffectType.FAST_DIGGING,
+    private final List<PotionEffectType> effectList = new ArrayList<>(Arrays.asList(
+            PotionEffectType.FAST_DIGGING,
             PotionEffectType.FIRE_RESISTANCE,
             PotionEffectType.INVISIBILITY,
             PotionEffectType.JUMP,
             PotionEffectType.NIGHT_VISION,
             PotionEffectType.SLOW_FALLING));
 
-    private final List<Material> runeItems = new ArrayList<>(List.of(Material.MAGMA_BLOCK,
+    private final List<Material> runeItems = new ArrayList<>(List.of(
+            Material.MAGMA_BLOCK,
             Material.TOTEM_OF_UNDYING,
             Material.GLASS,
             Material.RABBIT_FOOT,
@@ -149,19 +151,27 @@ public class InventoryInteractListener implements Listener {
     }
     public boolean isRune(ItemStack item) {
         if (runeItems.contains(item.getType()) && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
+
             List<String> lore = item.getItemMeta().getLore();
+
             if (lore.contains(HasteRune.getLore().get(0))) {
                 return true;
+
             } else if (lore.contains(InvisibilityRune.getLore().get(0))) {
                 return true;
+
             } else if (lore.contains(SlowFallingRune.getLore().get(0))) {
                 return true;
+
             } else if (lore.contains(FireResistanceRune.getLore().get(0))) {
                 return true;
+
             } else if (lore.contains(JumpRune.getLore().get(0))) {
                 return true;
+
             } else if (lore.contains(NightVisionRune.getLore().get(0))) {
                 return true;
+
             }
         }
         return false;
