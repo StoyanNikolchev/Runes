@@ -10,13 +10,7 @@ import java.util.List;
 
 public class JumpRune extends Rune {
     public JumpRune() {
-        super(ChatColor.BLUE + "" + ChatColor.BOLD + "I'm not officer, Mr High", getLore(), getEffects(), Material.RABBIT_FOOT);
-    }
-
-    public static List<String> getLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add("Gives you Jump Boost");
-        return lore;
+        super(ChatColor.BLUE + "" + ChatColor.BOLD + "I'm not officer, Mr High", List.of("Gives you Jump Boost"), getEffects(), Material.RABBIT_FOOT);
     }
 
     public static PotionEffect getEffects() {

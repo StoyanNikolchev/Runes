@@ -10,13 +10,7 @@ import java.util.List;
 
 public class NightVisionRune extends Rune {
     public NightVisionRune() {
-        super(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Sunglasses Required", getLore(), getEffects(), Material.SPYGLASS);
-    }
-
-    public static List<String> getLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add("Gives you Night Vision");
-        return lore;
+        super(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Sunglasses Required", List.of("Gives you Night Vision"), getEffects(), Material.SPYGLASS);
     }
 
     public static PotionEffect getEffects() {

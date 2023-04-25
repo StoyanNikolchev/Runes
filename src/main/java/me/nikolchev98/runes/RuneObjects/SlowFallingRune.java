@@ -10,13 +10,7 @@ import java.util.List;
 
 public class SlowFallingRune extends Rune {
     public SlowFallingRune() {
-        super(ChatColor.WHITE + "" + ChatColor.BOLD + "Light as Light", getLore(), getEffects(), Material.FEATHER);
-    }
-
-    public static List<String> getLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add("Gives you Slow Falling");
-        return lore;
+        super(ChatColor.WHITE + "" + ChatColor.BOLD + "Light as Light", List.of("Gives you Slow Falling"), getEffects(), Material.FEATHER);
     }
 
     public static PotionEffect getEffects() {

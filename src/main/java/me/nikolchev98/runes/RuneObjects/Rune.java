@@ -36,4 +36,11 @@ public abstract class Rune {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+    public List<String> getLore() {
+        return lore;
+    };
+
+    public PotionEffect getEffect() {
+        return effect;
+    }
 }

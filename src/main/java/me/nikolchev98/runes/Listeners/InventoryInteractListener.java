@@ -1,6 +1,5 @@
 package me.nikolchev98.runes.Listeners;
 
-import me.nikolchev98.runes.RuneObjects.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,28 +18,17 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InventoryInteractListener implements Listener {
     private final Plugin plugin;
     private List<Player> playersWithRuneEffects = new ArrayList<>();
 
-    private final List<PotionEffectType> effectList = new ArrayList<>(Arrays.asList(
-            PotionEffectType.FAST_DIGGING,
-            PotionEffectType.FIRE_RESISTANCE,
-            PotionEffectType.INVISIBILITY,
-            PotionEffectType.JUMP,
-            PotionEffectType.NIGHT_VISION,
-            PotionEffectType.SLOW_FALLING));
+    private final List<PotionEffectType> effectList = Arrays.stream(RuneType.values())
+            .map(runeType -> runeType.createRune().getEffect().getType()).collect(Collectors.toList());
 
-    private final List<Material> runeItems = new ArrayList<>(List.of(
-            Material.MAGMA_BLOCK,
-            Material.TOTEM_OF_UNDYING,
-            Material.GLASS,
-            Material.RABBIT_FOOT,
-            Material.SPYGLASS,
-            Material.FEATHER,
-            //Keeps runes from previous version functional
-            Material.PLAYER_HEAD));
+    private final List<Material> runeItems = Arrays.stream(RuneType.values())
+            .map(runeType -> runeType.createRune().getItemType()).collect(Collectors.toList());
 
     public InventoryInteractListener(Plugin plugin) {
         this.plugin = plugin;
@@ -129,49 +117,26 @@ public class InventoryInteractListener implements Listener {
     }
 
     private void applyEffect(Player player, List<String> lore) {
-        if (lore.contains(HasteRune.getLore().get(0))) {
-            player.addPotionEffect(HasteRune.getEffects());
+        String itemLore = lore.get(0);
 
-        } else if (lore.contains(InvisibilityRune.getLore().get(0))) {
-            player.addPotionEffect(InvisibilityRune.getEffects());
-
-        } else if (lore.contains(SlowFallingRune.getLore().get(0))) {
-            player.addPotionEffect(SlowFallingRune.getEffects());
-
-        } else if (lore.contains(FireResistanceRune.getLore().get(0))) {
-            player.addPotionEffect(FireResistanceRune.getEffects());
-
-        } else if (lore.contains(JumpRune.getLore().get(0))) {
-            player.addPotionEffect(JumpRune.getEffects());
-
-        } else if (lore.contains(NightVisionRune.getLore().get(0))) {
-            player.addPotionEffect(NightVisionRune.getEffects());
+        for (RuneType runeType : RuneType.values()) {
+            if (runeType.createRune().getLore().get(0).equals(itemLore)) {
+                player.addPotionEffect(runeType.createRune().getEffect());
+            }
         }
         playersWithRuneEffects.add(player);
     }
     public boolean isRune(ItemStack item) {
+
         if (runeItems.contains(item.getType()) && item.hasItemMeta() && item.getItemMeta().getLore() != null) {
+            String itemLore = item.getItemMeta().getLore().get(0);
 
-            List<String> lore = item.getItemMeta().getLore();
+            for (RuneType runeType : RuneType.values()) {
+                String runeLore = runeType.createRune().getLore().get(0);
 
-            if (lore.contains(HasteRune.getLore().get(0))) {
-                return true;
-
-            } else if (lore.contains(InvisibilityRune.getLore().get(0))) {
-                return true;
-
-            } else if (lore.contains(SlowFallingRune.getLore().get(0))) {
-                return true;
-
-            } else if (lore.contains(FireResistanceRune.getLore().get(0))) {
-                return true;
-
-            } else if (lore.contains(JumpRune.getLore().get(0))) {
-                return true;
-
-            } else if (lore.contains(NightVisionRune.getLore().get(0))) {
-                return true;
-
+                if (runeLore.equals(itemLore)) {
+                    return true;
+                }
             }
         }
         return false;

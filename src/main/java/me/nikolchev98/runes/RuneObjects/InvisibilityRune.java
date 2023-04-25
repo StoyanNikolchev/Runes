@@ -10,13 +10,7 @@ import java.util.List;
 
 public class InvisibilityRune extends Rune {
     public InvisibilityRune() {
-        super(ChatColor.GREEN + "" + ChatColor.BOLD + "John Cena", getLore(), getEffects(), Material.GLASS);
-    }
-
-    public static List<String> getLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add("Makes you invisible");
-        return lore;
+        super(ChatColor.GREEN + "" + ChatColor.BOLD + "John Cena", List.of("Makes you invisible"), getEffects(), Material.GLASS);
     }
 
     public static PotionEffect getEffects() {

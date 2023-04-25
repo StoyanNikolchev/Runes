@@ -10,13 +10,7 @@ import java.util.List;
 
 public class HasteRune extends Rune {
     public HasteRune() {
-        super(ChatColor.GOLD + "" + ChatColor.BOLD + "Diggy Diggy Hole", getLore(), getEffects(), Material.TOTEM_OF_UNDYING);
-    }
-
-    public static List<String> getLore() {
-        List<String> lore = new ArrayList<>();
-        lore.add("Gives you Haste 2");
-        return lore;
+        super(ChatColor.GOLD + "" + ChatColor.BOLD + "Diggy Diggy Hole", List.of("Gives you Haste 2"), getEffects(), Material.TOTEM_OF_UNDYING);
     }
 
     public static PotionEffect getEffects() {
