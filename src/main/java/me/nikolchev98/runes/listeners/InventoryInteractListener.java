@@ -1,5 +1,6 @@
-package me.nikolchev98.runes.Listeners;
+package me.nikolchev98.runes.listeners;
 
+import me.nikolchev98.runes.enums.RuneType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

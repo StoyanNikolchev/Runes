@@ -2,3 +2,9 @@ name: Runes
 version: '${project.version}'
 main: me.nikolchev98.runes.Runes
 api-version: 1.19
+commands:
+  rune:
+    description: A command to grant runes to a player
+    usage: /<command>
+    aliases:
+      - runes

@@ -1,11 +1,10 @@
-package me.nikolchev98.runes.RuneObjects;
+package me.nikolchev98.runes.runeObjects;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JumpRune extends Rune {

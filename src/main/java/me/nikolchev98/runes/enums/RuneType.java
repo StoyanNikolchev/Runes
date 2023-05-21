@@ -1,6 +1,6 @@
-package me.nikolchev98.runes.Listeners;
+package me.nikolchev98.runes.enums;
 
-import me.nikolchev98.runes.RuneObjects.*;
+import me.nikolchev98.runes.runeObjects.*;
 
 public enum RuneType {
     FIRE_RESISTANCE_RUNE,
