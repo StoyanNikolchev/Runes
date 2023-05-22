@@ -64,7 +64,7 @@ public class RuneCommand implements CommandExecutor {
         }
 
         String playerName = args[1];
-        player = getOnlinePlayer(playerName);
+        player = Bukkit.getPlayerExact(playerName);
         if (player == null) {
             invalidCommandMessage = ChatColor.RED + "This player is not online.";
             return false;
@@ -89,14 +89,5 @@ public class RuneCommand implements CommandExecutor {
         runeType = null;
         invalidCommandMessage = ChatColor.RED + "No such rune.";
         return false;
-    }
-
-    private Player getOnlinePlayer(String playerName) {
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            if (onlinePlayer.getName().equals(playerName)) {
-                return onlinePlayer;
-            }
-        }
-        return null;
     }
 }
