@@ -38,9 +38,17 @@ public class BossKillListener implements Listener {
 
     private static boolean killedByPlayer(EntityDamageEvent deathCause) {
         if (deathCause instanceof EntityDamageByEntityEvent) {
-            return ((EntityDamageByEntityEvent) deathCause).getDamager() instanceof Player;
-        }
+            EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) deathCause;
 
+            if (damageEvent.getDamager() instanceof Player) {
+                return true;
+
+            //Check if the mob was killed by a player's arrow because the check above doesn't account for that
+            } else if (damageEvent.getDamager() instanceof Arrow) {
+                Arrow arrow = (Arrow) damageEvent.getDamager();
+                return arrow.getShooter() instanceof Player;
+            }
+        }
         return false;
     }
 
